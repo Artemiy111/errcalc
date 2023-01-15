@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;1,500;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    font-size: 18px;
+    line-height: 130%;
+    font-family: 'Jetbrains Mono', sans-serif;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+  @media screen(md) {
+    html,
+    body {
+      font-size: 20px;
+    }
+    h1 {
+      font-size: 32px;
+    }
+  }
+}
