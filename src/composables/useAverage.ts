@@ -1,5 +1,5 @@
 import { ref, type Ref, watch } from 'vue'
-import type { FilteredDataItem } from '../../types'
+import type { FilteredDataItem } from '../types'
 
 export const useAverage = (dataItems: Ref<FilteredDataItem[]>) => {
   const average = ref(0)
@@ -10,7 +10,7 @@ export const useAverage = (dataItems: Ref<FilteredDataItem[]>) => {
       if (dataItems.value.length === 0) return 0
 
       let sum = 0
-      dataItems.value.forEach(item => {
+      dataItems.value.forEach((item) => {
         sum += item.data
       })
 
