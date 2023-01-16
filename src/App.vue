@@ -4,6 +4,7 @@ import { DataItem, FilteredDataItem } from '@/types'
 
 import InputData from '@/components/InputData.vue'
 import ErrorCalculation from '@/components/ErrorCalculation.vue'
+import TheHeader from './components/TheHeader.vue'
 
 const inputData = ref<DataItem[]>([])
 const filteredData = computed(
@@ -12,13 +13,11 @@ const filteredData = computed(
 </script>
 
 <template>
-  <main>
-    <div class="container mx-auto px-5">
-      <h1 class="mt-10 font-bold">Калькулятор погрешностей</h1>
-      <div class="mt-10 flex flex-col flex-nowrap gap-20 md:flex-row">
-        <InputData v-model="inputData" />
-        <ErrorCalculation :dataset="filteredData" />
-      </div>
+  <div class="container mx-auto px-5 transition-all">
+    <TheHeader class="mt-10" />
+    <div class="mt-10 flex flex-col flex-nowrap gap-20 md:flex-row">
+      <InputData v-model="inputData" />
+      <ErrorCalculation :dataset="filteredData" />
     </div>
-  </main>
+  </div>
 </template>

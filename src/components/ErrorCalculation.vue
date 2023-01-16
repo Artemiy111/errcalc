@@ -51,7 +51,7 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
           v-model.number="decimalPlaces"
           min="1"
           max="9"
-          class="w-full rounded-md bg-transparent font-bold outline-none transition focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
+          class="w-full rounded-md bg-transparent font-bold outline-none duration-300 focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
         />
       </div>
     </section>
@@ -69,12 +69,12 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
             @change="changeRandomErrorFormula"
           />
           <div
-            class="w-fit cursor-pointer rounded-xl border-2 border-transparent transition hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:invert dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
+            class="w-fit cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
           >
             <img
               src="@/assets/img/random-error-1.svg"
               alt=""
-              class="m-3 h-[60px] w-max [user-select:none]"
+              class="m-3 h-[60px] w-max [user-select:none] dark:invert"
             />
           </div>
         </label>
@@ -87,7 +87,7 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
             @change="changeRandomErrorFormula"
           />
           <div
-            class="w-fit cursor-pointer rounded-xl border-2 border-transparent transition hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:invert dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
+            class="w-fit cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
           >
             <img
               src="@/assets/img/random-error-2.svg"
@@ -112,13 +112,13 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
           v-model.number="systematicError"
           min="0"
           max="9"
-          class="w-full rounded-md bg-transparent font-bold outline-none transition group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
+          class="w-full rounded-md bg-transparent font-bold outline-none duration-300 focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
         />
       </div>
     </section>
     <section class="mt-10 mb-10 flex flex-col gap-3">
       <span>Формула полной погрешности</span>
-      <div class="w-fit rounded-xl border-2 border-zinc-900 transition dark:border-zinc-300">
+      <div class="w-fit rounded-xl border-2 border-zinc-900 transition-colors dark:border-zinc-300">
         <img
           src="@/assets/img/full-error.svg"
           alt=""
