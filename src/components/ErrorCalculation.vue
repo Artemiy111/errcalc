@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, ref, toRef } from 'vue'
 import { FilteredDataItem, RandomErrorFormula } from '@/types'
 
 import { useAverage } from '@/composables/useAverage'

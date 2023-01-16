@@ -66,7 +66,7 @@ const editDataItem = (event: Event, id: string) => {
     </template>
     <button
       @click="addDataItem()"
-      class="mt-[10px] w-full rounded-full border-2 border-solid border-zinc-900 pt-[6px] pb-[5px] transition-colors [user-select:none] hover:bg-zinc-900 hover:text-white active:border-zinc-700 active:bg-zinc-700 active:text-white dark:border-zinc-300 dark:hover:bg-zinc-300 dark:hover:text-zinc-900 dark:active:border-zinc-100 dark:active:bg-zinc-100 dark:active:text-zinc-900"
+      class="mt-[10px] w-full rounded-full border-2 border-solid border-zinc-900 pt-[6px] pb-[5px] duration-300 [user-select:none] hover:bg-zinc-900 hover:text-white active:border-zinc-700 active:bg-zinc-700 active:text-white dark:border-zinc-300 dark:hover:bg-zinc-300 dark:hover:text-zinc-900 dark:active:border-zinc-100 dark:active:bg-zinc-100 dark:active:text-zinc-900"
     >
       Добавить
     </button>

@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import { DataItem, FilteredDataItem } from '@/types'
-
-import InputData from '@/components/InputData.vue'
-import ErrorCalculation from '@/components/ErrorCalculation.vue'
-import TheHeader from './components/TheHeader.vue'
 
 const inputData = ref<DataItem[]>([])
 const filteredData = computed(
