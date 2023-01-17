@@ -5,6 +5,8 @@ import { useAverage } from '@/composables/useAverage'
 import { useRandomError } from '@/composables/useRandomError'
 import { customRounded } from '@/utils/customRounded'
 
+import { z } from 'zod'
+
 const props = defineProps<{
   dataset: FilteredDataItem[]
 }>()
@@ -12,7 +14,22 @@ const props = defineProps<{
 const dataset = toRef(props, 'dataset')
 
 const average = useAverage(dataset)
+
+const decimalPlacesSchema = z.number().int().min(1).max(5)
 const decimalPlaces = ref(3)
+
+const setDecimalPlaces = (event: Event) => {
+  const newValue = parseFloat((event.target as HTMLInputElement).value)
+  try {
+    decimalPlacesSchema.parse(newValue)
+    console.log('parse ' + newValue)
+    decimalPlaces.value = newValue
+  } catch (e) {
+    decimalPlaces.value = 3
+    ;(event.target as HTMLInputElement).value = String(3)
+  }
+}
+
 const formatedAverage = computed<number>(() => +average.value.toFixed(decimalPlaces.value))
 
 const randomErrorFormula = ref<RandomErrorFormula>('full')
@@ -25,7 +42,19 @@ const changeRandomErrorFormula = (event: Event) => {
 const randomErrorFull = useRandomError(average, dataset, 'full')
 const randomErrorSimplified = useRandomError(average, dataset, 'simplified')
 
+const systematicErrorSchema = z.number().nonnegative()
 const systematicError = ref(0)
+
+const setSystematicError = (event: Event) => {
+  try {
+    const newValue = parseFloat((event.target as HTMLInputElement).value)
+    systematicErrorSchema.parse(newValue)
+    systematicError.value = newValue
+  } catch (e) {
+    systematicError.value = 0
+    ;(event.target as HTMLInputElement).value = String(0)
+  }
+}
 
 const fullError = computed<number>(() =>
   randomErrorFormula.value === 'full'
@@ -47,9 +76,10 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
         <span class="w-fit whitespace-nowrap">Знаков после запятой</span>
         <input
           type="number"
-          v-model.number="decimalPlaces"
+          :value="decimalPlaces"
+          @change="setDecimalPlaces"
           min="1"
-          max="9"
+          max="5"
           class="w-full rounded-md bg-transparent font-bold outline-none duration-300 focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
         />
       </div>
@@ -108,7 +138,8 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
         <span class="whitespace-nowrap">Систематическая погрешность</span>
         <input
           type="number"
-          v-model.number="systematicError"
+          :value="systematicError"
+          @change="setSystematicError"
           min="0"
           max="9"
           class="w-full rounded-md bg-transparent font-bold outline-none duration-300 focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"

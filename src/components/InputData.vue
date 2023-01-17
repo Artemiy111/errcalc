@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { DataItem } from '@/types'
 import { nanoid } from 'nanoid'
+import { z } from 'zod'
 
 const props = defineProps<{
   modelValue: DataItem[]
@@ -10,12 +11,12 @@ const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: DataItem[]): void
 }>()
 
-const addDataItem = (data: number | null = null) => {
-  const newDataItem = {
+const addDataItem = () => {
+  const newItem: DataItem = {
     id: nanoid(),
-    data,
+    data: null,
   }
-  emit('update:modelValue', [...props.modelValue, newDataItem])
+  emit('update:modelValue', [...props.modelValue, newItem])
 }
 
 const deleteDataItem = (id: string) => {
@@ -25,10 +26,22 @@ const deleteDataItem = (id: string) => {
   )
 }
 
+const inputNumberSchema = z.number().min(-999_999).max(999_999)
+
 const editDataItem = (event: Event, id: string) => {
+  let newNumber: number | null = parseFloat((event.target as HTMLInputElement).value)
+
   const newModelValue = [...props.modelValue]
+
+  try {
+    inputNumberSchema.parse(newNumber)
+  } catch (e) {
+    newNumber = null
+    ;(event.target as HTMLInputElement).value = ''
+  }
+
   newModelValue.forEach((dataItem: DataItem, index) => {
-    if (dataItem.id === id) newModelValue[index].data = +(event.target as HTMLInputElement).value
+    if (dataItem.id === id) newModelValue[index].data = newNumber
   })
   emit('update:modelValue', newModelValue)
 }
