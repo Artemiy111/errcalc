@@ -32,21 +32,21 @@ const editDataItem = (event: Event, id: string) => {
   })
   emit('update:modelValue', newModelValue)
 }
+
+const formatIndex = (index: number) => (index + 1 <= 9 ? '0' + (index + 1) : index + 1)
 </script>
 
 <template>
-  <section class="w-fit">
-    <h4 class="whitespace-nowrap">Входные данные</h4>
+  <section class="">
+    <h2 class="whitespace-nowrap">Входные данные</h2>
     <template v-if="props.modelValue.length !== 0">
       <div
-        class="mt-5 flex max-w-[220px] flex-col gap-2 rounded-xl border-2 border-zinc-900 px-3 pt-3 pb-2.5 dark:border-zinc-300"
+        class="mt-5 flex w-full flex-col gap-2 rounded-xl border-2 border-zinc-900 px-3 pt-3 pb-2.5 dark:border-zinc-300"
       >
         <div v-for="(dataItem, index) in props.modelValue" :key="dataItem.id" class="">
           <div class="group flex flex-nowrap justify-between gap-4">
-            <div class="flex gap-4">
-              <span class="[user-select:none]">{{
-                index + 1 <= 9 ? '0' + (index + 1) : index + 1
-              }}</span>
+            <div class="flex w-full gap-4">
+              <span class="[user-select:none]">{{ formatIndex(index) }}</span>
               <input
                 type="number"
                 class="w-full appearance-none rounded-md bg-transparent px-1 outline-none duration-300 focus:outline-none focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"

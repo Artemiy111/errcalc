@@ -115,7 +115,7 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
         />
       </div>
     </section>
-    <section class="mt-10 mb-10 flex flex-col gap-3">
+    <section class="mt-10 flex flex-col gap-3">
       <span>Формула полной погрешности</span>
       <div class="w-fit rounded-xl border-2 border-zinc-900 transition-colors dark:border-zinc-300">
         <img
