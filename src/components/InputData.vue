@@ -69,7 +69,7 @@ const formatIndex = (index: number) => (index + 1 <= 9 ? '0' + (index + 1) : ind
             </div>
             <button
               @click="deleteDataItem(dataItem.id)"
-              class="flex aspect-square h-[26px] w-[26px] items-center justify-center rounded-full border-2 border-zinc-900 opacity-0 transition-all duration-300 hover:bg-zinc-900 hover:text-white active:border-zinc-700 active:bg-zinc-700 active:text-white group-hover:opacity-100 dark:border-zinc-300 dark:hover:bg-zinc-300 dark:hover:text-zinc-900 dark:active:border-zinc-100 dark:active:bg-zinc-100 dark:active:text-zinc-900 [@media(hover:none)]:opacity-100"
+              class="flex aspect-square h-[26px] w-[26px] items-center justify-center rounded-full border-2 border-zinc-900 opacity-0 transition-all duration-300 hover:bg-zinc-900 hover:text-white active:border-zinc-700 active:bg-zinc-700 active:text-white group-hover:opacity-100 dark:border-zinc-300 dark:hover:bg-zinc-300 dark:hover:text-zinc-900 dark:active:border-zinc-100 dark:active:bg-zinc-100 dark:active:text-zinc-900 [@media(hover:none)]:opacity-100 [@media(pointer:none)]:opacity-100 [@media(pointer:coarse)]:opacity-100"
             >
               <span class="text-[26px] [user-select:none]">&times;</span>
             </button>
