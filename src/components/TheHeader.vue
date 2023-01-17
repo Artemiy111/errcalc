@@ -3,6 +3,12 @@ import { useDark, useToggle } from '@vueuse/core'
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
+
+const cssColorScheme = computed(() => (isDark.value ? 'dark' : 'light'))
+
+watchEffect(() => {
+  document.documentElement.style.colorScheme = cssColorScheme.value
+})
 </script>
 
 <template>
