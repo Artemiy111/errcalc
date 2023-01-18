@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { FilteredDataItem, RandomErrorFormula } from '@/types'
+import { RandomErrorFormula } from '@/types'
 
-import { useAverage } from '@/composables/useAverage'
-import { useRandomError } from '@/composables/useRandomError'
-import { customRounded } from '@/utils/customRounded'
+import useAverage from '@/composables/useAverage'
+import useRandomError from '@/composables/useRandomError'
+import customRounded from '@/utils/customRounded'
 
 import { z } from 'zod'
 
 const props = defineProps<{
-  dataset: FilteredDataItem[]
+  dataset: number[]
 }>()
 
 const dataset = toRef(props, 'dataset')

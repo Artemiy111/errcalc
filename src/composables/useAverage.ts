@@ -1,22 +1,15 @@
-import { ref, type Ref, watch } from 'vue'
-import type { FilteredDataItem } from '../types'
+import type { Ref } from 'vue'
 
-export const useAverage = (dataItems: Ref<FilteredDataItem[]>) => {
+export default (dataset: Ref<number[]>) => {
   const average = ref(0)
 
-  watch(
-    () => dataItems.value,
-    () => {
-      if (dataItems.value.length === 0) return 0
+  watchEffect(() => {
+    if (dataset.value.length === 0) return 0
 
-      let sum = 0
-      dataItems.value.forEach((item) => {
-        sum += item.data
-      })
+    const sum = dataset.value.reduce((acc, item) => acc + item)
 
-      average.value = sum / dataItems.value.length
-    }
-  )
+    average.value = sum / dataset.value.length
+  })
 
   return average
 }

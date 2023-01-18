@@ -1,23 +1,23 @@
-import { type Ref, computed } from 'vue'
-import type { FilteredDataItem, RandomErrorFormula } from '@/types'
+import type { Ref } from 'vue'
+import type { RandomErrorFormula } from '@/types'
 
-import { customRounded } from '@/utils/customRounded'
+import customRounded from '@/utils/customRounded'
 
-export const useRandomError = (
+export default (
   average: Ref<number>,
-  dataItems: Ref<FilteredDataItem[]>,
+  dataset: Ref<number[]>,
   randomErrorFormula: RandomErrorFormula
 ) => {
   switch (randomErrorFormula) {
     case 'full':
       return computed<number>(() => {
-        const count = dataItems.value.length
+        const count = dataset.value.length
 
         if (count === 0 || count === 1) return 0
 
         let error = 0
-        dataItems.value.forEach((dataItem) => {
-          error += (average.value - dataItem.data) ** 2
+        dataset.value.forEach((dataItem) => {
+          error += (average.value - dataItem) ** 2
         })
         error = error / (count * (count - 1))
         error = error ** 0.5
@@ -26,13 +26,13 @@ export const useRandomError = (
 
     case 'simplified':
       return computed<number>(() => {
-        const count = dataItems.value.length
+        const count = dataset.value.length
 
         if (count === 0 || count === 1) return 0
 
         let error = 0
-        dataItems.value.forEach((dataItem) => {
-          error += (average.value - dataItem.data) ** 2
+        dataset.value.forEach((dataItem) => {
+          error += (average.value - dataItem) ** 2
         })
         error = error ** 0.5
         error = error / count

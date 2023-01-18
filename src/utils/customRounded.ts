@@ -1,28 +1,28 @@
 import { Ref, unref } from 'vue'
 
-export const customRounded = (number: number | Ref<number>): number => {
+export default (number: number | Ref<number>): number => {
   number = unref(number)
-  const array = number.toString().split('.')
-  let resString = array[0] + '.'
+  const parts = number.toString().split('.')
 
-  if (array.length === 1) return number
+  if (parts.length === 1) return number
 
-  let isAccurate = false
-  for (const char of array[1]) {
-    if (isAccurate) {
-      resString += char
+  let count = 0
+  let isHighAccuracy = false
+  for (const char of parts[1]) {
+    if (isHighAccuracy) {
+      count++
       break
     }
-
-    if (char === '0') resString += char
-    else if (char === '1') {
-      isAccurate = true
-      resString += char
+    if (char === '0') {
+      count++
+    } else if (char === '1') {
+      isHighAccuracy = true
+      count++
     } else {
-      resString += char
+      count++
       break
     }
   }
 
-  return +resString
+  return +number.toFixed(count)
 }

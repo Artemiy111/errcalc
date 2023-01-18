@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { DataItem } from '@/types'
+import type { InputDataItem } from '@/types'
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
 
 const props = defineProps<{
-  modelValue: DataItem[]
+  modelValue: InputDataItem[]
 }>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: DataItem[]): void
+  (e: 'update:modelValue', modelValue: InputDataItem[]): void
 }>()
 
 const addDataItem = () => {
-  const newItem: DataItem = {
+  const newItem: InputDataItem = {
     id: nanoid(),
     data: null,
   }
@@ -40,7 +40,7 @@ const editDataItem = (event: Event, id: string) => {
     ;(event.target as HTMLInputElement).value = ''
   }
 
-  newModelValue.forEach((dataItem: DataItem, index) => {
+  newModelValue.forEach((dataItem: InputDataItem, index) => {
     if (dataItem.id === id) newModelValue[index].data = newNumber
   })
   emit('update:modelValue', newModelValue)

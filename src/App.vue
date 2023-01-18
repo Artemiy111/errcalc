@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { DataItem, FilteredDataItem } from '@/types'
+import { InputDataItem } from '@/types'
 
-const inputData = ref<DataItem[]>([])
-const filteredData = computed(
-  () => inputData.value.filter((item) => item.data !== null) as FilteredDataItem[]
+const inputData = ref<InputDataItem[]>([])
+
+const dataset = computed(
+  () => inputData.value.filter((item) => item.data !== null).map((item) => item.data) as number[]
 )
 </script>
 
@@ -12,7 +13,7 @@ const filteredData = computed(
     <TheHeader class="mt-10" />
     <div class="mt-10 mb-10 flex flex-col flex-nowrap gap-x-20 gap-y-10 md:flex-row">
       <InputData v-model="inputData" />
-      <ErrorCalculation :dataset="filteredData" />
+      <ErrorCalculation :dataset="dataset" />
     </div>
   </div>
 </template>
