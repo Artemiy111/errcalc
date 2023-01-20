@@ -1,4 +1,4 @@
-import customRounded from '@/utils/customRounded'
+import customRounded from '@/helpers/customRounded'
 
 import { describe, it, expect } from 'vitest'
 

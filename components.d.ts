@@ -10,5 +10,6 @@ declare module '@vue/runtime-core' {
     ErrorCalculation: typeof import('./src/components/ErrorCalculation.vue')['default']
     InputData: typeof import('./src/components/InputData.vue')['default']
     TheHeader: typeof import('./src/components/TheHeader.vue')['default']
+    TheMain: typeof import('./src/components/TheMain.vue')['default']
   }
 }

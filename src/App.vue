@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { InputDataItem } from '@/types'
+import { useDark, useToggle } from '@vueuse/core'
 
-const inputData = ref<InputDataItem[]>([])
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 
-const dataset = computed(
-  () => inputData.value.filter((item) => item.data !== null).map((item) => item.data) as number[]
-)
+const cssColorScheme = computed(() => (isDark.value ? 'dark' : 'light'))
+
+watchEffect(() => {
+  document.documentElement.style.colorScheme = cssColorScheme.value
+})
 </script>
 
 <template>
-  <div class="container mx-auto px-5 transition-all">
-    <TheHeader class="mt-10" />
-    <div class="mt-10 mb-10 flex flex-col flex-nowrap gap-x-20 gap-y-10 md:flex-row">
-      <InputData v-model="inputData" class="md:w-40" />
-      <ErrorCalculation :dataset="dataset" />
-    </div>
+  <div class="container mx-auto mt-10 mb-10 px-5 transition-all">
+    <TheHeader class="" @toggle-darkmode="toggleDark" />
+    <TheMain class="mt-10 flex flex-col flex-nowrap gap-x-20 gap-y-10 md:flex-row"> </TheMain>
   </div>
 </template>

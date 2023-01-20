@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { useDark, useToggle } from '@vueuse/core'
+import { useDark } from '@vueuse/core'
+
+defineEmits<{
+  (e: 'toggle-darkmode'): void
+}>()
 
 const isDark = useDark()
-const toggleDark = useToggle(isDark)
-
-const cssColorScheme = computed(() => (isDark.value ? 'dark' : 'light'))
-
-watchEffect(() => {
-  document.documentElement.style.colorScheme = cssColorScheme.value
-})
 </script>
 
 <template>
@@ -17,7 +14,7 @@ watchEffect(() => {
     <Icon
       :icon="['far', isDark ? 'sun' : 'moon']"
       class="cursor-pointer text-2xl"
-      @click="toggleDark()"
+      @click="$emit('toggle-darkmode')"
     />
   </header>
 </template>

@@ -3,7 +3,7 @@ import { RandomErrorFormula } from '@/types'
 
 import useAverage from '@/composables/useAverage'
 import useRandomError from '@/composables/useRandomError'
-import customRounded from '@/utils/customRounded'
+import customRounded from '@/helpers/customRounded'
 
 import { z } from 'zod'
 

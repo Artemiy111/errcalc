@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import type { RandomErrorFormula } from '@/types'
 
-import customRounded from '@/utils/customRounded'
+import customRounded from '@/helpers/customRounded'
 
 export default (
   average: Ref<number>,
