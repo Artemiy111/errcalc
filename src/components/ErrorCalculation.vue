@@ -68,19 +68,19 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
 <template>
   <section class="">
     <section>
-      <div class="flex gap-5">
+      <div class="flex justify-between gap-5 xs:justify-start">
         <span>Среднее значение</span>
         <span class="text-blue-500">{{ formatedAverage }}</span>
       </div>
-      <div class="group mt-3 flex gap-5">
-        <span class="w-fit whitespace-nowrap">Знаков после запятой</span>
+      <div class="group mt-3 flex justify-between gap-5 xs:justify-start">
+        <span class="">Знаков после запятой</span>
         <input
           type="number"
           :value="decimalPlaces"
           @change="setDecimalPlaces"
           min="1"
           max="5"
-          class="w-full rounded-md bg-transparent font-bold outline-none duration-300 focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
+          class="h-fit w-[5ch] rounded-md bg-transparent text-right font-bold outline-none duration-300 [direction:rtl] focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800 xs:text-left xs:[direction:ltr]"
         />
       </div>
     </section>
@@ -88,7 +88,7 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
       <span>Формула случайной погрешности</span>
 
       <div class="flex flex-wrap gap-3">
-        <label class="block">
+        <label class="w-full xs:w-auto">
           <input
             type="radio"
             name="random-error"
@@ -98,16 +98,16 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
             @change="changeRandomErrorFormula"
           />
           <div
-            class="w-fit cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
+            class="w-full cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
           >
             <img
               src="@/assets/img/random-error-1.svg"
               alt=""
-              class="m-3 h-[60px] w-max [user-select:none] dark:invert"
+              class="my-5 mx-auto h-[60px] w-max [user-select:none] dark:invert xs:m-3"
             />
           </div>
         </label>
-        <label class="block">
+        <label class="w-full xs:w-auto">
           <input
             type="radio"
             name="random-error"
@@ -116,17 +116,17 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
             @change="changeRandomErrorFormula"
           />
           <div
-            class="w-fit cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
+            class="w-full cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
           >
             <img
               src="@/assets/img/random-error-2.svg"
               alt=""
-              class="m-3 h-[60px] [user-select:none] dark:invert"
+              class="my-5 mx-auto h-[60px] [user-select:none] dark:invert xs:m-3"
             />
           </div>
         </label>
       </div>
-      <div class="flex gap-5">
+      <div class="flex justify-between gap-5 xs:justify-start">
         <span>Случайная погрешность</span>
         <span class="text-blue-500">{{
           randomErrorFormula === 'full' ? randomErrorFull : randomErrorSimplified
@@ -134,28 +134,31 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
       </div>
     </section>
     <section class="mt-10">
-      <div class="group flex flex-nowrap gap-5">
-        <span class="whitespace-nowrap">Систематическая погрешность</span>
+      <div class="group flex justify-between gap-5 xs:justify-start">
+        <span class="">Систематическая погрешность</span>
         <input
           type="number"
           :value="systematicError"
           @change="setSystematicError"
           min="0"
-          max="9"
-          class="w-full rounded-md bg-transparent font-bold outline-none duration-300 focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
+          step="0.001"
+          max="10"
+          class="h-fit w-[7ch] rounded-md bg-transparent text-right font-bold outline-none duration-300 [direction:rtl] focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800 xs:text-left xs:[direction:ltr]"
         />
       </div>
     </section>
     <section class="mt-10 flex flex-col gap-3">
       <span>Формула полной погрешности</span>
-      <div class="w-fit rounded-xl border-2 border-zinc-900 transition-colors dark:border-zinc-300">
+      <div
+        class="w-full rounded-xl border-2 border-zinc-900 transition-colors dark:border-zinc-300 xs:w-fit"
+      >
         <img
           src="@/assets/img/full-error.svg"
           alt=""
-          class="m-3 h-[50px] [user-select:none] dark:invert"
+          class="my-5 mx-auto h-[50px] [user-select:none] dark:invert xs:m-3"
         />
       </div>
-      <div class="flex gap-5">
+      <div class="flex justify-between gap-5 xs:justify-start">
         <span>Полная погрешность</span>
         <span class="text-green-600">{{ formatedFullError }}</span>
       </div>

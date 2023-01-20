@@ -12,7 +12,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <header class="flex justify-between gap-5">
+  <header class="flex items-center justify-between gap-5">
     <h1 class="font-bold">Калькулятор погрешностей</h1>
     <Icon
       :icon="['far', isDark ? 'sun' : 'moon']"
