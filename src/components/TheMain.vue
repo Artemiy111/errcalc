@@ -10,7 +10,7 @@ const dataset = computed(
 
 <template>
   <main>
-    <InputData v-model="inputData" class="md:w-48" />
+    <InputData v-model="inputData" class="md:min-w-[11rem]" />
     <ErrorCalculation :dataset="dataset" />
   </main>
 </template>

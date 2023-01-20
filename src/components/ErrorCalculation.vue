@@ -68,11 +68,11 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
 <template>
   <section class="">
     <section>
-      <div class="flex justify-between gap-5 xs:justify-start">
+      <div class="flex justify-between gap-5">
         <span>Среднее значение</span>
         <span class="text-blue-500">{{ formatedAverage }}</span>
       </div>
-      <div class="group mt-3 flex justify-between gap-5 xs:justify-start">
+      <div class="group mt-3 flex justify-between gap-5">
         <span class="">Знаков после запятой</span>
         <input
           type="number"
@@ -80,7 +80,7 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
           @change="setDecimalPlaces"
           min="1"
           max="5"
-          class="h-fit w-[5ch] rounded-md bg-transparent text-right font-bold outline-none duration-300 [direction:rtl] focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800 xs:text-left xs:[direction:ltr]"
+          class="h-fit w-[5ch] rounded-md bg-transparent text-right font-bold outline-none duration-300 [direction:rtl] focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
         />
       </div>
     </section>
@@ -126,7 +126,7 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
           </div>
         </label>
       </div>
-      <div class="flex justify-between gap-5 xs:justify-start">
+      <div class="flex justify-between gap-5">
         <span>Случайная погрешность</span>
         <span class="text-blue-500">{{
           randomErrorFormula === 'full' ? randomErrorFull : randomErrorSimplified
@@ -134,7 +134,7 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
       </div>
     </section>
     <section class="mt-10">
-      <div class="group flex justify-between gap-5 xs:justify-start">
+      <div class="group flex justify-between gap-5">
         <span class="">Систематическая погрешность</span>
         <input
           type="number"
@@ -143,7 +143,7 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
           min="0"
           step="0.001"
           max="10"
-          class="h-fit w-[7ch] rounded-md bg-transparent text-right font-bold outline-none duration-300 [direction:rtl] focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800 xs:text-left xs:[direction:ltr]"
+          class="h-fit w-[7ch] rounded-md bg-transparent text-right font-bold outline-none duration-300 [direction:rtl] focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
         />
       </div>
     </section>
@@ -158,7 +158,7 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
           class="my-5 mx-auto h-[50px] [user-select:none] dark:invert xs:m-3"
         />
       </div>
-      <div class="flex justify-between gap-5 xs:justify-start">
+      <div class="flex justify-between gap-5">
         <span>Полная погрешность</span>
         <span class="text-green-600">{{ formatedFullError }}</span>
       </div>

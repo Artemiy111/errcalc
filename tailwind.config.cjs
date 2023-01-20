@@ -13,6 +13,9 @@ module.exports = {
     container: {
       screens: {
         xs: '100%',
+        // ...defaultTheme.screens
+        md: '768px',
+        lg: '900px',
       },
     },
   },
