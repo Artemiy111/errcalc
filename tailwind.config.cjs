@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /** @type {import('tailwindcss').Config} */
 
 const defaultTheme = require('tailwindcss/defaultTheme')
@@ -13,7 +14,6 @@ module.exports = {
     container: {
       screens: {
         xs: '100%',
-        // ...defaultTheme.screens
         md: '768px',
         lg: '900px',
       },

@@ -13,6 +13,9 @@ export default defineConfig({
     AutoImport({
       dts: true,
       imports: ['vue'],
+      eslintrc: {
+        enabled: true, // <-- this
+      },
     }),
     Components({ dts: true }),
   ],

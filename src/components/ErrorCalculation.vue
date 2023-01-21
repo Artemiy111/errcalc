@@ -77,10 +77,10 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
         <input
           type="number"
           :value="decimalPlaces"
-          @change="setDecimalPlaces"
           min="1"
           max="5"
           class="h-fit w-[5ch] rounded-md bg-transparent text-right font-bold outline-none duration-300 focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
+          @change="setDecimalPlaces"
         />
       </div>
     </section>
@@ -139,11 +139,11 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
         <input
           type="number"
           :value="systematicError"
-          @change="setSystematicError"
           min="0"
           step="0.001"
           max="10"
           class="h-fit w-[7ch] rounded-md bg-transparent text-right font-bold outline-none duration-300 focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
+          @change="setSystematicError"
         />
       </div>
     </section>

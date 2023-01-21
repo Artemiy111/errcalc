@@ -12,7 +12,6 @@ const isDark = useDark()
   <header class="flex justify-between xs:gap-16">
     <h1 class="font-bold">Калькулятор погрешностей</h1>
     <div class="flex items-center gap-6 xs:gap-8">
-      <!-- <Icon :icon="['far']" /> -->
       <a href="https://github.com/Artemiy111/error-calc" class="flex items-center text-center"
         ><Icon :icon="['fab', 'github']" class="cursor-pointer text-2xl"
       /></a>

@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/vue'
-import { describe, it, expect } from 'vitest'
+import { render, screen } from '@testing-library/vue'
+import { describe, it } from 'vitest'
 import InputData from './InputData.vue'
 
 describe('InputData', () => {
@@ -9,6 +9,6 @@ describe('InputData', () => {
         modelValue: [],
       },
     })
-    const addButton = screen.getByText('Добавить')
+    screen.getByText('Добавить')
   })
 })
