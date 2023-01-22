@@ -1,69 +1,55 @@
-import customRounded from '@/helpers/customRounded'
-import { describe, it, expect } from 'vitest'
+import { describe, it, test, expect } from 'vitest'
 
 import useRandomError from '@/composables/useRandomError'
 import useAverage from '@/composables/useAverage'
+import customRounded from '@/helpers/customRounded'
 
-describe('useRandomError', () => {
-  const dataset = ref<number[]>([])
-  const average = useAverage(dataset)
+const dataset = ref<number[]>([])
+const average = useAverage(dataset)
 
-  const randomErrorFull = useRandomError(average, dataset, 'full')
-  const randomErrorSimplified = useRandomError(average, dataset, 'simplified')
+const randomErrorFull = useRandomError(average, dataset, 'full')
+const randomErrorSimplified = useRandomError(average, dataset, 'simplified')
 
-  describe('randomError full', () => {
-    it('0 if dataset is empty', () => {
-      dataset.value = []
+describe('full', () => {
+  it('is 0 if dataset is empty', () => {
+    dataset.value = []
 
-      nextTick(() => {
-        expect(randomErrorFull.value).toBe(0)
-      })
-    })
-
-    it('0 if 1 item in dataset', () => {
-      dataset.value = [999]
-
-      nextTick(() => {
-        expect(randomErrorFull.value).toBe(0)
-      })
-    })
-
-    it('with 3 items', () => {
-      dataset.value = [5, 10, 15]
-      const avg = (5 + 10 + 15) / 3
-      const res = (((5 - avg) ** 2 + (10 - avg) ** 2 + (15 - avg) ** 2) / (3 * (3 - 1))) ** 0.5
-
-      nextTick(() => {
-        expect(randomErrorFull.value).toBe(customRounded(res))
-      })
-    })
+    expect(randomErrorFull.value).toBe(0)
   })
 
-  describe('randomError simplified', () => {
-    it('0 if dataset is empty', () => {
-      dataset.value = []
+  it('is 0 if 1 item in dataset', () => {
+    dataset.value = [999]
 
-      nextTick(() => {
-        expect(randomErrorSimplified.value).toBe(0)
-      })
-    })
+    expect(randomErrorFull.value).toBe(0)
+  })
 
-    it('0 if 1 item in dataset', () => {
-      dataset.value = [999]
+  test('with 3 items', () => {
+    dataset.value = [5, 10, 15]
+    const avg = (5 + 10 + 15) / 3
+    const res = (((5 - avg) ** 2 + (10 - avg) ** 2 + (15 - avg) ** 2) / (3 * (3 - 1))) ** 0.5
 
-      nextTick(() => {
-        expect(randomErrorSimplified.value).toBe(0)
-      })
-    })
+    expect(randomErrorFull.value).toBe(customRounded(res))
+  })
+})
 
-    it('with 3 items', () => {
-      dataset.value = [5, 10, 15]
-      const avg = (5 + 10 + 15) / 3
-      const res = ((5 - avg) ** 2 + (10 - avg) ** 2 + (15 - avg) ** 2) ** 0.5 / 3
+describe('simplified', () => {
+  it('is 0 if dataset is empty', () => {
+    dataset.value = []
 
-      nextTick(() => {
-        expect(randomErrorSimplified.value).toBe(customRounded(res))
-      })
-    })
+    expect(randomErrorSimplified.value).toBe(0)
+  })
+
+  it('is 0 if 1 item in dataset', () => {
+    dataset.value = [999]
+
+    expect(randomErrorSimplified.value).toBe(0)
+  })
+
+  test('with 3 items', () => {
+    dataset.value = [5, 10, 15]
+    const avg = (5 + 10 + 15) / 3
+    const res = ((5 - avg) ** 2 + (10 - avg) ** 2 + (15 - avg) ** 2) ** 0.5 / 3
+
+    expect(randomErrorSimplified.value).toBe(customRounded(res))
   })
 })

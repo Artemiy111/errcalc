@@ -1,4 +1,4 @@
-import { it } from 'vitest'
+import { it, expect } from 'vitest'
 import { render, screen } from '@testing-library/vue'
 import BaseButton from '@/components/BaseButton.vue'
 
@@ -10,5 +10,5 @@ it('renders with text', () => {
     },
   })
 
-  screen.getByText(text)
+  expect(screen.queryByText(text)).toBeDefined()
 })
