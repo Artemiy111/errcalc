@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { InputDataItem } from '@/types'
+import type { InputDatasetItem } from '@/components/TheMain.vue'
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
 
 const props = defineProps<{
-  modelValue: InputDataItem[]
+  modelValue: InputDatasetItem[]
 }>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: InputDataItem[]): void
+  (e: 'update:modelValue', modelValue: InputDatasetItem[]): void
 }>()
 
 const addDataItem = () => {
-  const newItem: InputDataItem = {
+  const newItem: InputDatasetItem = {
     id: nanoid(),
     data: null,
   }
@@ -40,7 +40,7 @@ const editDataItem = (event: Event, id: string) => {
     ;(event.target as HTMLInputElement).value = ''
   }
 
-  newModelValue.forEach((dataItem: InputDataItem, index) => {
+  newModelValue.forEach((dataItem: InputDatasetItem, index) => {
     if (dataItem.id === id) newModelValue[index].data = newNumber
   })
   emit('update:modelValue', newModelValue)
@@ -60,10 +60,10 @@ const formatIndex = (index: number) => (index + 1 <= 9 ? '0' + (index + 1) : ind
           <div class="group flex flex-nowrap justify-between gap-4">
             <div class="flex w-full gap-4">
               <span class="[user-select:none]">{{ formatIndex(index) }}</span>
-              <input
+              <BaseInput
                 type="number"
-                class="w-full appearance-none rounded-md bg-transparent px-1 outline-none duration-300 focus:outline-none focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
                 :value="dataItem.data"
+                class="w-full group-hover:bg-zinc-50 dark:group-hover:bg-zinc-800"
                 @change="editDataItem($event, dataItem.id)"
               />
             </div>
@@ -77,12 +77,25 @@ const formatIndex = (index: number) => (index + 1 <= 9 ? '0' + (index + 1) : ind
         </div>
       </div>
     </template>
-    <button
+    <BaseButton
       :class="props.modelValue.length === 0 ? 'mt-5' : 'mt-3'"
-      class="w-full rounded-full border-2 border-solid border-zinc-900 pt-[6px] pb-[5px] duration-300 [user-select:none] hover:bg-zinc-900 hover:text-white active:border-zinc-700 active:bg-zinc-700 active:text-white dark:border-zinc-300 dark:hover:bg-zinc-300 dark:hover:text-zinc-900 dark:active:border-zinc-100 dark:active:bg-zinc-100 dark:active:text-zinc-900"
+      class="w-full"
       @click="addDataItem()"
+      >Добавить</BaseButton
     >
-      Добавить
-    </button>
   </section>
 </template>
+
+<style scoped>
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type='number']:hover,
+input[type='number']:focus {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+</style>

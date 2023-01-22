@@ -7,8 +7,11 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BaseButton: typeof import('./src/components/BaseButton.vue')['default']
+    BaseInput: typeof import('./src/components/BaseInput.vue')['default']
     ErrorCalculation: typeof import('./src/components/ErrorCalculation.vue')['default']
-    InputData: typeof import('./src/components/InputData.vue')['default']
+    InputData: typeof import('./src/components/InputDataset.vue')['default']
+    InputDataset: typeof import('./src/components/InputDataset.vue')['default']
     TheHeader: typeof import('./src/components/TheHeader.vue')['default']
     TheMain: typeof import('./src/components/TheMain.vue')['default']
   }

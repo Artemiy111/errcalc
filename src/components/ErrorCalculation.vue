@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { RandomErrorFormula } from '@/types'
-
 import useAverage from '@/composables/useAverage'
-import useRandomError from '@/composables/useRandomError'
+import useRandomError, { type RandomErrorFormula } from '@/composables/useRandomError'
 import customRounded from '@/helpers/customRounded'
 
 import { z } from 'zod'
@@ -74,12 +72,12 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
       </div>
       <div class="group mt-3 flex justify-between gap-5">
         <span class="">Знаков после запятой</span>
-        <input
+        <BaseInput
           type="number"
           :value="decimalPlaces"
           min="1"
           max="5"
-          class="h-fit w-[5ch] rounded-md bg-transparent text-right font-bold outline-none duration-300 focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
+          class="h-fit w-[5ch] text-right group-hover:bg-zinc-50 dark:group-hover:bg-zinc-800"
           @change="setDecimalPlaces"
         />
       </div>
@@ -136,13 +134,13 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
     <section class="mt-10">
       <div class="group flex justify-between gap-5">
         <span class="">Систематическая погрешность</span>
-        <input
+        <BaseInput
           type="number"
-          :value="systematicError"
           min="0"
           step="0.001"
           max="10"
-          class="h-fit w-[7ch] rounded-md bg-transparent text-right font-bold outline-none duration-300 focus:ring-2 focus:ring-zinc-50 group-hover:bg-zinc-50 dark:focus:ring-2 dark:focus:ring-zinc-800 dark:group-hover:bg-zinc-800"
+          class="h-fit w-[7ch] text-right group-hover:bg-zinc-50 dark:group-hover:bg-zinc-800"
+          :value="systematicError"
           @change="setSystematicError"
         />
       </div>
