@@ -6,7 +6,6 @@ import type { UserConfig as VitestConfig } from 'vitest'
 import vue from '@vitejs/plugin-vue'
 
 import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
 
 export default defineConfig({
   test: { globals: true, environment: 'jsdom' } as VitestConfig,
@@ -19,7 +18,6 @@ export default defineConfig({
         enabled: true,
       },
     }),
-    Components({ dts: true }),
   ],
   resolve: {
     alias: {

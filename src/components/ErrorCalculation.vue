@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import useAverage from '@/composables/useAverage'
-import useRandomError, { type RandomErrorFormula } from '@/composables/useRandomError'
-import customRounded from '@/helpers/customRounded'
+import BaseInput from './BaseInput.vue'
+
+import {
+  getAverageWithAccuracy,
+  getFullError,
+  getRandomErrorFull,
+  getRandomErrorSimple,
+} from '@/calculator'
 
 import { z } from 'zod'
 
@@ -9,58 +14,67 @@ const props = defineProps<{
   dataset: number[]
 }>()
 
+type RandomErrorType = 'full' | 'simple'
+
 const dataset = toRef(props, 'dataset')
 
-const average = useAverage(dataset)
+const defaultAccuracy = 3
+const averageAccuracySchema = z.number().int().min(1).max(5)
+const averageAccuracy = ref(defaultAccuracy)
 
-const decimalPlacesSchema = z.number().int().min(1).max(5)
-const decimalPlaces = ref(3)
-
-const setDecimalPlaces = (event: Event) => {
+const setAverageAccuracy = (event: Event) => {
+  const target = event.target as HTMLInputElement
   const newValue = parseFloat((event.target as HTMLInputElement).value)
-  try {
-    decimalPlacesSchema.parse(newValue)
-    console.log('parse ' + newValue)
-    decimalPlaces.value = newValue
-  } catch (e) {
-    decimalPlaces.value = 3
-    ;(event.target as HTMLInputElement).value = String(3)
+
+  const result = averageAccuracySchema.safeParse(newValue)
+  if (!result.success) {
+    if (newValue < 1) {
+      averageAccuracy.value = 1
+      target.value = (1).toString()
+    }
+    if (newValue > 5) {
+      averageAccuracy.value = 5
+      target.value = (5).toString()
+    }
+    return
   }
+  averageAccuracy.value = result.data
 }
 
-const formatedAverage = computed<number>(() => +average.value.toFixed(decimalPlaces.value))
+const averageWithAccuracy = computed(() =>
+  getAverageWithAccuracy(averageAccuracy.value)(dataset.value)
+)
 
-const randomErrorFormula = ref<RandomErrorFormula>('full')
-
-const changeRandomErrorFormula = (event: Event) => {
-  const value = (event.target as HTMLInputElement).value as RandomErrorFormula
-  randomErrorFormula.value = value
+const randomErrorType = ref<RandomErrorType>('simple')
+const changeRandomErrorType = (event: Event) => {
+  randomErrorType.value = (event.target as HTMLInputElement).value as RandomErrorType
 }
 
-const randomErrorFull = useRandomError(average, dataset, 'full')
-const randomErrorSimplified = useRandomError(average, dataset, 'simplified')
+const randomErrorFull = computed(() => getRandomErrorFull(averageWithAccuracy.value)(dataset.value))
+const randomErrorSimplified = computed(() =>
+  getRandomErrorSimple(averageWithAccuracy.value)(dataset.value)
+)
 
 const systematicErrorSchema = z.number().nonnegative()
 const systematicError = ref(0)
 
 const setSystematicError = (event: Event) => {
+  const target = event.target as HTMLInputElement
   try {
     const newValue = parseFloat((event.target as HTMLInputElement).value)
     systematicErrorSchema.parse(newValue)
     systematicError.value = newValue
   } catch (e) {
     systematicError.value = 0
-    ;(event.target as HTMLInputElement).value = String(0)
+    target.value = (0).toString()
   }
 }
 
-const fullError = computed<number>(() =>
-  randomErrorFormula.value === 'full'
-    ? (randomErrorFull.value ** 2 + systematicError.value ** 2) ** 0.5
-    : (randomErrorSimplified.value ** 2 + systematicError.value ** 2) ** 0.5
+const fullError = computed(() =>
+  randomErrorType.value === 'full'
+    ? getFullError(randomErrorFull.value)(systematicError.value)
+    : getFullError(randomErrorSimplified.value)(systematicError.value)
 )
-
-const formatedFullError = computed<number>(() => customRounded(fullError))
 </script>
 
 <template>
@@ -68,17 +82,17 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
     <section>
       <div class="flex justify-between gap-5">
         <span>Среднее значение</span>
-        <span class="text-blue-500">{{ formatedAverage }}</span>
+        <span class="text-blue-500">{{ averageWithAccuracy }}</span>
       </div>
       <div class="group mt-3 flex justify-between gap-5">
         <span class="">Знаков после запятой</span>
         <BaseInput
           type="number"
-          :value="decimalPlaces"
+          :value="averageAccuracy"
           min="1"
           max="5"
           class="h-fit w-[5ch] text-right group-hover:bg-zinc-50 dark:group-hover:bg-zinc-800"
-          @change="setDecimalPlaces"
+          @change="setAverageAccuracy"
         />
       </div>
     </section>
@@ -88,30 +102,12 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
       <div class="flex flex-wrap gap-3">
         <label class="w-full xs:w-auto">
           <input
-            type="radio"
-            name="random-error"
-            value="full"
             checked
-            class="peer hidden"
-            @change="changeRandomErrorFormula"
-          />
-          <div
-            class="w-full cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
-          >
-            <img
-              src="@/assets/img/random-error-1.svg"
-              alt=""
-              class="my-5 mx-auto h-[60px] w-max [user-select:none] dark:invert xs:m-3"
-            />
-          </div>
-        </label>
-        <label class="w-full xs:w-auto">
-          <input
             type="radio"
             name="random-error"
             value="simplified"
             class="peer hidden"
-            @change="changeRandomErrorFormula"
+            @change="changeRandomErrorType"
           />
           <div
             class="w-full cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
@@ -119,7 +115,25 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
             <img
               src="@/assets/img/random-error-2.svg"
               alt=""
-              class="my-5 mx-auto h-[60px] [user-select:none] dark:invert xs:m-3"
+              class="mx-auto my-5 h-[60px] [user-select:none] dark:invert xs:m-3"
+            />
+          </div>
+        </label>
+        <label class="w-full xs:w-auto">
+          <input
+            type="radio"
+            name="random-error"
+            value="full"
+            class="peer hidden"
+            @change="changeRandomErrorType"
+          />
+          <div
+            class="w-full cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
+          >
+            <img
+              src="@/assets/img/random-error-1.svg"
+              alt=""
+              class="mx-auto my-5 h-[60px] w-max [user-select:none] dark:invert xs:m-3"
             />
           </div>
         </label>
@@ -127,7 +141,7 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
       <div class="flex justify-between gap-5">
         <span>Случайная погрешность</span>
         <span class="text-blue-500">{{
-          randomErrorFormula === 'full' ? randomErrorFull : randomErrorSimplified
+          randomErrorType === 'full' ? randomErrorFull : randomErrorSimplified
         }}</span>
       </div>
     </section>
@@ -153,12 +167,12 @@ const formatedFullError = computed<number>(() => customRounded(fullError))
         <img
           src="@/assets/img/full-error.svg"
           alt=""
-          class="my-5 mx-auto h-[50px] [user-select:none] dark:invert xs:m-3"
+          class="mx-auto my-5 h-[50px] [user-select:none] dark:invert xs:m-3"
         />
       </div>
       <div class="flex justify-between gap-5">
         <span>Полная погрешность</span>
-        <span class="text-green-600">{{ formatedFullError }}</span>
+        <span class="text-green-600">{{ fullError }}</span>
       </div>
     </section>
   </section>

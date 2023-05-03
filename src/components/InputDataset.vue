@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import BaseInput from './BaseInput.vue'
+import BaseButton from './BaseButton.vue'
+
 import type { InputDatasetItem } from '@/components/TheMain.vue'
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
@@ -54,7 +57,7 @@ const formatIndex = (index: number) => (index + 1 <= 9 ? '0' + (index + 1) : ind
     <h2 class="whitespace-nowrap">Входные данные</h2>
     <template v-if="props.modelValue.length !== 0">
       <div
-        class="mt-5 flex w-full flex-col gap-2 rounded-xl border-2 border-zinc-900 px-3 pt-3 pb-2.5 dark:border-zinc-300"
+        class="mt-5 flex w-full flex-col gap-2 rounded-xl border-2 border-zinc-900 px-3 pb-2.5 pt-3 dark:border-zinc-300"
       >
         <div v-for="(dataItem, index) in props.modelValue" :key="dataItem.id" class="">
           <div class="group flex flex-nowrap justify-between gap-4">
@@ -68,7 +71,7 @@ const formatIndex = (index: number) => (index + 1 <= 9 ? '0' + (index + 1) : ind
               />
             </div>
             <button
-              class="flex aspect-square h-[26px] w-[26px] items-center justify-center rounded-full border-2 border-zinc-900 opacity-0 transition-all duration-300 hover:bg-zinc-900 hover:text-white active:border-zinc-700 active:bg-zinc-700 active:text-white group-hover:opacity-100 dark:border-zinc-300 dark:hover:bg-zinc-300 dark:hover:text-zinc-900 dark:active:border-zinc-100 dark:active:bg-zinc-100 dark:active:text-zinc-900 [@media(hover:none)]:opacity-100 [@media(pointer:none)]:opacity-100 [@media(pointer:coarse)]:opacity-100"
+              class="flex aspect-square h-[26px] w-[26px] items-center justify-center rounded-full border-2 border-zinc-900 opacity-0 transition-all duration-300 hover:bg-zinc-900 hover:text-white active:border-zinc-700 active:bg-zinc-700 active:text-white group-hover:opacity-100 dark:border-zinc-300 dark:hover:bg-zinc-300 dark:hover:text-zinc-900 dark:active:border-zinc-100 dark:active:bg-zinc-100 dark:active:text-zinc-900 [@media(hover:none)]:opacity-100 [@media(pointer:coarse)]:opacity-100 [@media(pointer:none)]:opacity-100"
               @click="deleteDataItem(dataItem.id)"
             >
               <span class="text-[26px] [user-select:none]">&times;</span>
