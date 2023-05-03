@@ -14,12 +14,20 @@ const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: InputDatasetItem[]): void
 }>()
 
+const inputRefs = ref<Array<InstanceType<typeof BaseInput>>>([])
+
+const focusOnLastInput = () => {
+  console.log('focus')
+  inputRefs.value.at(-1)?.focus()
+}
+
 const addDataItem = () => {
   const newItem: InputDatasetItem = {
     id: nanoid(),
     data: null,
   }
   emit('update:modelValue', [...props.modelValue, newItem])
+  nextTick(() => focusOnLastInput())
 }
 
 const deleteDataItem = (id: string) => {
@@ -64,6 +72,7 @@ const formatIndex = (index: number) => (index + 1 <= 9 ? '0' + (index + 1) : ind
             <div class="flex w-full gap-4">
               <span class="[user-select:none]">{{ formatIndex(index) }}</span>
               <BaseInput
+                ref="inputRefs"
                 type="number"
                 :value="dataItem.data"
                 class="w-full group-hover:bg-zinc-50 dark:group-hover:bg-zinc-800"
