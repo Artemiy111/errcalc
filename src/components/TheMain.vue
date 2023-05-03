@@ -40,7 +40,7 @@ const dataset = computed(
           class="w-full rounded-xl border-2 border-zinc-900 transition-colors dark:border-zinc-300 sm:w-fit"
         >
           <img
-            src="@/assets/img/equation 1.svg"
+            src="@/assets/img/equation1.svg"
             alt="indirect error"
             class="mx-auto h-[80px] p-3 [user-select:none] dark:invert"
           />
@@ -49,7 +49,7 @@ const dataset = computed(
           class="w-full rounded-xl border-2 border-zinc-900 transition-colors dark:border-zinc-300 sm:w-fit"
         >
           <img
-            src="@/assets/img/equation 2.svg"
+            src="@/assets/img/equation2.svg"
             alt="indirect error"
             class="mx-auto h-[80px] p-3 [user-select:none] dark:invert"
           />
@@ -58,7 +58,7 @@ const dataset = computed(
           class="w-full rounded-xl border-2 border-zinc-900 transition-colors dark:border-zinc-300 sm:w-fit"
         >
           <img
-            src="@/assets/img/equation 3.svg"
+            src="@/assets/img/equation3.svg"
             alt="indirect error"
             class="mx-auto h-[80px] p-3 [user-select:none] dark:invert"
           />
