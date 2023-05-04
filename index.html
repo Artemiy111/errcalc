@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" class="dark:[color-scheme:dark]">
   <head>
-    <meta charset="UTF-8" />
+    <title>Калькулятор погрешностей</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
       content="Позволяет расчитать полную погрешность по случайной и систематической. Формулы расчёта погрешности косвенных измерений"
     />
+    <meta name="keywords" content="калькулятор, погрешность, физика, лабораторная работа" />
     <meta property="og:title" content="Калькулятор погрешностей" />
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="website" />
     <meta property="og:image" content="/preview.png" />
-    <title>Калькулятор погрешностей</title>
   </head>
   <body class="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-300">
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      ;(function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            ;(m[i].a = m[i].a || []).push(arguments)
+          }
+        m[i].l = 1 * new Date()
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return
+          }
+        }
+        ;(k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a)
+      })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym')
+
+      ym(93318147, 'init', {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+      })
+    </script>
+    <!-- /Yandex.Metrika counter -->
   </body>
 </html>
