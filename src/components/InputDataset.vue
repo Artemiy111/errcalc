@@ -17,7 +17,6 @@ const emit = defineEmits<{
 const inputRefs = ref<Array<InstanceType<typeof BaseInput>>>([])
 
 const focusOnLastInput = () => {
-  console.log('focus')
   inputRefs.value.at(-1)?.focus()
 }
 
