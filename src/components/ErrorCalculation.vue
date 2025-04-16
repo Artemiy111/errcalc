@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import BaseInput from './BaseInput.vue'
-
 import {
   getAverageWithAccuracy,
   getFullError,
@@ -9,6 +7,8 @@ import {
 } from '@/calculator'
 
 import { z } from 'zod'
+
+import BaseInput from './BaseInput.vue'
 
 const props = defineProps<{
   dataset: number[]
@@ -22,9 +22,9 @@ const defaultAccuracy = 3
 const averageAccuracySchema = z.number().int().min(1).max(5)
 const averageAccuracy = ref(defaultAccuracy)
 
-const setAverageAccuracy = (event: Event) => {
+function setAverageAccuracy(event: Event) {
   const target = event.target as HTMLInputElement
-  const newValue = parseFloat((event.target as HTMLInputElement).value)
+  const newValue = Number.parseFloat((event.target as HTMLInputElement).value)
 
   const result = averageAccuracySchema.safeParse(newValue)
   if (!result.success) {
@@ -42,29 +42,29 @@ const setAverageAccuracy = (event: Event) => {
 }
 
 const averageWithAccuracy = computed(() =>
-  getAverageWithAccuracy(averageAccuracy.value)(dataset.value)
+  getAverageWithAccuracy(averageAccuracy.value)(dataset.value),
 )
 
 const randomErrorType = ref<RandomErrorType>('simple')
-const changeRandomErrorType = (event: Event) => {
+function changeRandomErrorType(event: Event) {
   randomErrorType.value = (event.target as HTMLInputElement).value as RandomErrorType
 }
 
 const randomErrorFull = computed(() => getRandomErrorFull(averageWithAccuracy.value)(dataset.value))
 const randomErrorSimplified = computed(() =>
-  getRandomErrorSimple(averageWithAccuracy.value)(dataset.value)
+  getRandomErrorSimple(averageWithAccuracy.value)(dataset.value),
 )
 
 const systematicErrorSchema = z.number().nonnegative()
 const systematicError = ref(0)
 
-const setSystematicError = (event: Event) => {
+function setSystematicError(event: Event) {
   const target = event.target as HTMLInputElement
   try {
-    const newValue = parseFloat((event.target as HTMLInputElement).value)
+    const newValue = Number.parseFloat((event.target as HTMLInputElement).value)
     systematicErrorSchema.parse(newValue)
     systematicError.value = newValue
-  } catch (e) {
+  } catch (_) {
     systematicError.value = 0
     target.value = (0).toString()
   }
@@ -73,7 +73,7 @@ const setSystematicError = (event: Event) => {
 const fullError = computed(() =>
   randomErrorType.value === 'full'
     ? getFullError(randomErrorFull.value)(systematicError.value)
-    : getFullError(randomErrorSimplified.value)(systematicError.value)
+    : getFullError(randomErrorSimplified.value)(systematicError.value),
 )
 </script>
 
@@ -100,7 +100,7 @@ const fullError = computed(() =>
       <span>Формула случайной погрешности</span>
 
       <div class="flex flex-wrap gap-3">
-        <label class="w-full xs:w-auto">
+        <label class="xs:w-auto w-full">
           <input
             checked
             type="radio"
@@ -110,16 +110,16 @@ const fullError = computed(() =>
             @change="changeRandomErrorType"
           />
           <div
-            class="w-full cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
+            class="w-full cursor-pointer rounded-xl border-2 border-transparent duration-300 peer-checked:cursor-auto peer-checked:border-zinc-900 hover:bg-zinc-50 peer-checked:hover:bg-transparent active:ring-2 active:ring-zinc-50 dark:peer-checked:border-zinc-300 dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800"
           >
             <img
               src="@/assets/img/random-error-2.svg"
               alt=""
-              class="mx-auto my-5 h-[60px] [user-select:none] dark:invert xs:m-3"
+              class="xs:m-3 mx-auto my-5 h-[60px] [user-select:none] dark:invert"
             />
           </div>
         </label>
-        <label class="w-full xs:w-auto">
+        <label class="xs:w-auto w-full">
           <input
             type="radio"
             name="random-error"
@@ -128,12 +128,12 @@ const fullError = computed(() =>
             @change="changeRandomErrorType"
           />
           <div
-            class="w-full cursor-pointer rounded-xl border-2 border-transparent duration-300 hover:bg-zinc-50 active:ring-2 active:ring-zinc-50 peer-checked:cursor-auto peer-checked:border-zinc-900 peer-checked:hover:bg-transparent dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800 dark:peer-checked:border-zinc-300"
+            class="w-full cursor-pointer rounded-xl border-2 border-transparent duration-300 peer-checked:cursor-auto peer-checked:border-zinc-900 hover:bg-zinc-50 peer-checked:hover:bg-transparent active:ring-2 active:ring-zinc-50 dark:peer-checked:border-zinc-300 dark:hover:bg-zinc-800 dark:active:ring-2 dark:active:ring-zinc-800"
           >
             <img
               src="@/assets/img/random-error-1.svg"
               alt=""
-              class="mx-auto my-5 h-[60px] w-max [user-select:none] dark:invert xs:m-3"
+              class="xs:m-3 mx-auto my-5 h-[60px] w-max [user-select:none] dark:invert"
             />
           </div>
         </label>
@@ -162,12 +162,12 @@ const fullError = computed(() =>
     <section class="mt-10 flex flex-col gap-3">
       <span>Формула полной погрешности</span>
       <div
-        class="w-full rounded-xl border-2 border-zinc-900 transition-colors dark:border-zinc-300 xs:w-fit"
+        class="xs:w-fit w-full rounded-xl border-2 border-zinc-900 transition-colors dark:border-zinc-300"
       >
         <img
           src="@/assets/img/full-error.svg"
           alt=""
-          class="mx-auto my-5 h-[50px] [user-select:none] dark:invert xs:m-3"
+          class="xs:m-3 mx-auto my-5 h-[50px] [user-select:none] dark:invert"
         />
       </div>
       <div class="flex justify-between gap-5">

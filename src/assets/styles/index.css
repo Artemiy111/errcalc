@@ -1,8 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;1,500;1,700&display=swap');
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --breakpoint-xs: 400px;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+
+  @media (width >= theme(--breakpoint-xs)) {
+    width: 100%;
+  }
+  @media (width >= theme(--breakpoint-md)) {
+    width: 768px;
+  }
+  @media (width >= theme(--breakpoint-lg)) {
+    width: 900px;
+  }
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   html,
@@ -10,13 +28,13 @@
     font-size: 16px;
     font-family: 'Jetbrains Mono', sans-serif;
   }
-  @media screen(sm) {
+  @media (width >= theme(--breakpoint-xs)) {
     html,
     body {
       font-size: 18px;
     }
   }
-  @media screen(md) {
+  @media (width >= theme(--breakpoint-md)) {
     html,
     body {
       font-size: 20px;

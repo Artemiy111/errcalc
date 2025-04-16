@@ -11,12 +11,13 @@ const cssColorScheme = computed(() => (isDark.value ? 'dark' : 'light'))
 
 watchEffect(() => {
   document.documentElement.style.colorScheme = cssColorScheme.value
+  document.documentElement.classList.toggle('dark', isDark.value)
 })
 </script>
 
 <template>
-  <div class="container mx-auto mb-10 mt-10 px-5 transition-all">
-    <TheHeader class="" @toggle-darkmode="toggleDark" />
+  <div class="container mx-auto mt-10 mb-10 px-5 transition-all">
+    <TheHeader :is-dark="isDark" @toggle:darkmode="toggleDark" />
     <TheMain class="mt-10" />
   </div>
 </template>
