@@ -19,7 +19,7 @@ type RandomErrorType = 'full' | 'simple'
 const dataset = toRef(props, 'dataset')
 
 const defaultAccuracy = 3
-const averageAccuracySchema = z.number().int().min(1).max(5)
+const averageAccuracySchema = z.int().min(1).max(5)
 const averageAccuracy = ref(defaultAccuracy)
 
 function setAverageAccuracy(event: Event) {

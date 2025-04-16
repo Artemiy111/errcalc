@@ -34,15 +34,13 @@ function editDataItem(event: Event, id: string) {
 
   try {
     inputNumberSchema.parse(newNumber)
-  }
-  catch (_) {
+  } catch (_) {
     newNumber = null
     ;(event.target as HTMLInputElement).value = ''
   }
 
-  datasetItems.value = datasetItems.value.map((dataItem) => {
-    if (dataItem.id === id)
-      dataItem.data = newNumber
+  datasetItems.value = datasetItems.value.map(dataItem => {
+    if (dataItem.id === id) dataItem.data = newNumber
     return dataItem
   })
 }
@@ -52,12 +50,10 @@ const formatIndex = (index: number) => (index + 1 <= 9 ? `0${index + 1}` : index
 
 <template>
   <section class="">
-    <h2 class="whitespace-nowrap">
-      Входные данные
-    </h2>
+    <h2 class="whitespace-nowrap">Входные данные</h2>
     <template v-if="datasetItems.length !== 0">
       <div
-        class="mt-5 flex  flex-col w-full gap-2 rounded-xl border-2 border-zinc-900 px-3 pt-3 pb-2.5 dark:border-zinc-300"
+        class="mt-5 flex flex-col w-full gap-2 rounded-xl border-2 border-zinc-900 px-3 pt-3 pb-2.5 dark:border-zinc-300"
       >
         <div v-for="(dataItem, index) in datasetItems" :key="dataItem.id" class="">
           <div class="group flex flex-nowrap justify-between gap-4">

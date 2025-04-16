@@ -21,6 +21,7 @@
     "@tailwindcss/vite": "^4.1.4",
     "@types/bun": "^1.2.9",
     "@vueuse/core": "^13.1.0",
+    "effect": "^3.14.10",
     "eslint-plugin-tailwindcss": "^3.18.0",
     "fp-ts": "^2.16.9",
     "lucide-vue-next": "^0.488.0",
